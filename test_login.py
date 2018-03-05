@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#coding=utf-8
 import unittest
 from ddt import ddt,data,unpack,file_data
 import base
