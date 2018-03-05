@@ -9,27 +9,21 @@ from selenium.common.exceptions import NoAlertPresentException
 import unittest, time, re
 
 
-class OkrTest(unittest.TestCase):
+class TestLogin(unittest.TestCase):
 	def setUp(self):
+		self.userName_loc = (By.ID,'tbUsername')
+		self.password_loc = (By.ID,'tbPassword')
+		self.loginButton_loc = (By.ID,'btLogin')
+
 		self.driver = webdriver.Chrome()
 		self.driver.maximize_window()
 		self.driver.implicitly_wait(5)
 		self.base_url = "http://10.202.202.94:28080"
-
 		self.driver.get(self.base_url + "/OKRS/")
-		user_name = self.driver.find_element_by_id("tbUsername")
-		user_name.clear()
-		user_name.send_keys('fengsijia')
-		password = self.driver.find_element_by_id("tbPassword")
-		password.clear()
-		password.send_keys('123456')
-		self.driver.find_element_by_id("btLogin").click()     
-		self.driver.find_element_by_xpath("//li[@onclick='changePro()']").click()  
-		self.driver.switch_to.frame('p_frame')
+
 
 	def tearDown(self):
 		self.driver.quit()
-		self.assertEqual([], self.verificationErrors)
 
 	def is_element_present(self, how, what):
 	    try: self.driver.find_element(by=how, value=what)
