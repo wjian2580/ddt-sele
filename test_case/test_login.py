@@ -1,13 +1,12 @@
 #coding=utf-8
 import unittest
 from ddt import ddt,data,unpack,file_data
-import base
 from page import login
 
 @ddt
 class TestLogin(login.TestLogin):
 
-    @file_data('login.yml')
+    @file_data('../data/login.yml')
     @unpack
     def test_login(self,username,password):
         driver = self.driver

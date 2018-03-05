@@ -18,8 +18,8 @@ class TestLogin(unittest.TestCase):
 		self.driver = webdriver.Chrome()
 		self.driver.maximize_window()
 		self.driver.implicitly_wait(5)
-		self.base_url = "http://10.202.202.94:28080"
-		self.driver.get(self.base_url + "/OKRS/")
+		self.base_url = "http://okrs.top"
+		self.driver.get(self.base_url)
 
 
 	def tearDown(self):
