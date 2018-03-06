@@ -42,7 +42,7 @@ for case in cases:
 				by = 'text_part'
 			elif by == 'class_name':
 				by = 'class'
-			line = "self.send_keys('{}={}',{})".format(by,value,keys)
+			line = "self.send_keys('{}={}','{}')".format(by,value,keys)
 			st += (line+'\n')
 		else:
 			st += (line)
