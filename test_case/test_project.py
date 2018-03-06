@@ -21,6 +21,7 @@ class Project(base.OkrTest):
         driver.find_element_by_css_selector("input.addInp").clear()
         driver.find_element_by_css_selector("input.addInp").send_keys(project_name)
         driver.find_element_by_id("addProjectBtn").click()
+        
         #项目重命名
         driver.find_element_by_id("headName").click()
         driver.find_element_by_css_selector("li.rename").click()

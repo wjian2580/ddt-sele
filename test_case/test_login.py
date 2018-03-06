@@ -1,23 +1,33 @@
-#coding=utf-8
-import unittest
+#coding: utf-8
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoAlertPresentException
+import unittest,time, re
 from ddt import ddt,data,unpack,file_data
-from page import login
+from page import base
 
 @ddt
-class TestLogin(login.TestLogin):
+class TestLogin(base.OkrTest):
 
     @file_data('../data/login.yml')
     @unpack
-    def test_login(self,username,password):
+    def test_login(self,username,password,expected):
         driver = self.driver
-        userName_loc = driver.find_element(*self.userName_loc)
-        userName_loc.clear()
-        userName_loc.send_keys(username)
-        password_loc = driver.find_element(*self.password_loc)
-        password_loc.clear()
-        password_loc.send_keys(password)
-        driver.find_element(*self.loginButton_loc).click()       
-        self.assertTrue(self.is_element_present('xpath',"//i[text()='欢迎，冯思佳']"))
-    
+        driver.get(self.base_url+'OKRS')
+        self.send_keys('id=tbUsername',username)
+        self.send_keys('id=tbPassword',password)
+        self.click('id=btLogin')
+        try:
+            #登陆成功，获取欢迎信息
+            text = self.find_element('css=div.top_user > i').text
+        except NoSuchElementException:
+            #登陆失败，获取报错信息
+            text = self.find_element('id=result').text
+        self.assertEqual(text,expected)
+
 if __name__ == "__main__":
     unittest.main()

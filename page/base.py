@@ -20,10 +20,11 @@ class OkrTest(unittest.TestCase):
 		self.driver = webdriver.Chrome()
 		self.driver.maximize_window()
 		self.driver.implicitly_wait(10)
-		self.base_url = "http://okrs.top"
+		self.base_url = "http://10.202.202.94:28080/"
 		self.driver.get(self.base_url)
 
 	def login(self,driver):
+		self.driver.get(self.base_url+'OKRS')
 		self.send_keys('id=tbUsername','fengsijia')
 		self.send_keys('id=tbPassword','123456')
 		self.click('id=btLogin')   
