@@ -10,5 +10,5 @@
 #- { username: feng, password: !!str 123456, expected: 您输入的账户名和密码不匹配，请重新输入}
 # 3.密码或用户名为空
 #- { username: fengsijia, password: , expected: 您输入的账户名和密码不匹配，请重新输入}
-#- { username: , password: !!str 123456, expected: 您输入的账户名和密码不匹配，请重新输入}
+- { username:  , password: !!str 123456, expected: 您输入的账户名和密码不匹配，请重新输入}
 #- { username: , password: , expected: 您输入的账户名和密码不匹配，请重新输入}
