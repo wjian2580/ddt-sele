@@ -6,7 +6,7 @@ def main():
 	st = ''
 	for case in cases:
 		with open(case,encoding='utf-8') as f:
-			f.readlines()
+			lines = f.readlines()
 		for line in lines:
 			if 'clear()' in line:
 				pass
