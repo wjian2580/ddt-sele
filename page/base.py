@@ -39,19 +39,18 @@ class OkrTest(unittest.TestCase):
 		self.click('id=addProjectBtn')
 		time.sleep(2)
 
-	def delete_project(self,project_name):
-		self.create_project()
+	def delete_project(self):
 		self.click('css=#projectList > li:last-child')
 		self.click('id=headName')
 		self.click('css=li.delete')
 		self.click('id=proCarConfirmBtn')
 
-	def rename_project(self):
-		self.create_project()
+	def rename_project(self,project_name):
+		self.create_project('rename')
 		self.click('css=#projectList > li:last-child')
 		self.click('id=headName')
 		self.click('css=li.rename')
-		self.send_keys('id=proCarConfInput','rename_project')
+		self.send_keys('id=proCarConfInput',project_name)
 		self.click('id=proCarConfirmBtn')
 		time.sleep(2)
 
