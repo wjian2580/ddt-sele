@@ -21,7 +21,7 @@ class OkrTest(unittest.TestCase):
 		self.driver = webdriver.Chrome()
 		self.driver.maximize_window()
 		self.driver.implicitly_wait(5)
-		self.base_url = "http://10.202.202.94:28080/OKRS"
+		self.base_url = "http://okrs.top/OKRS"
 		self.driver.get(self.base_url)
 
 	def login(self):
@@ -34,6 +34,9 @@ class OkrTest(unittest.TestCase):
 		time.sleep(2)
 
 	def create_project(self,project_name='testing'):
+		project = self.find_element('css=#projectList > li:last-child').text
+		if project == project_name:
+			self.delete_project()
 		self.click('text=新增')
 		self.send_keys('css=input.addInp',project_name)
 		self.click('id=addProjectBtn')

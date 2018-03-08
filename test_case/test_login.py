@@ -16,8 +16,6 @@ class TestLogin(base.OkrTest):
     @file_data('../data/login.yml')
     @unpack
     def test_login(self,username,password,expected):
-        driver = self.driver
-        driver.get(self.base_url+'OKRS')
         self.send_keys('id=tbUsername',username)
         self.send_keys('id=tbPassword',password)
         self.click('id=btLogin')
