@@ -13,26 +13,18 @@ class Project(base.OkrTest):
 	
 	def test_create_project(self):
 		self.login()
+
 		self.create_project('create')
 		project = self.find_element('css=#projectList > li:last-child').text
-		try:
-			self.assertEqual(project,'create')
-		finally:
-			self.delete_project()
+		self.assertEqual(project,'create')
 
-	def test_rename_project(self):
-		self.login()
 		self.rename_project('renamed')
 		project = self.find_element('css=#projectList > li:last-child').text
-		try:
-			self.assertEqual(project,'renamed')
-		finally:
-			self.delete_project()
+		self.assertEqual(project,'renamed')
 
-
-	# def test_rename_project(self):
-	# 	self.rename_project()
-	# 	self.delete_project()
+		self.delete_project()
+		project = self.find_element('css=#projectList > li:last-child').text
+		self.assertNotEqual(project,'renamed')
 	
 if __name__ == "__main__":
 	unittest.main()

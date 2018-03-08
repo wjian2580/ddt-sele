@@ -10,15 +10,15 @@ import unittest
 class TestTask(OkrTest):
 	''''''
 	def test_task(self):
-		driver = self.driver
-		self.login(driver)
-		time.sleep(2)
-		self.create_project(driver)
+		self.login()
+		self.create_project()
+		self.click('css=#projectList > li:last-child')
 		self.click('css=img.gotoTask')
 		self.click('css=#proName > img')
 		self.click('css=td.taskInto')
-		self.click('css=span.tastPro > img.taskpng')
-		self.click('css=li.opt_tast.stage_addPre')
+		self.send_keys('css=td.taskInto > div > div > input','test_task')
+
+		self.click('css=td.taskInto > div > div > button')
 		self.send_keys('css=td.taskInto > div.box-card > div.el-card_body > input.addInp','tongji')
 		self.click('css=button.btn_tast')
 		self.click('css=i.taskTxt')

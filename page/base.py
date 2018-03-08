@@ -20,12 +20,12 @@ class OkrTest(unittest.TestCase):
 	def setUp(self):
 		self.driver = webdriver.Chrome()
 		self.driver.maximize_window()
-		self.driver.implicitly_wait(10)
-		self.base_url = "http://okrs.top/"
+		self.driver.implicitly_wait(5)
+		self.base_url = "http://10.202.202.94:28080/OKRS"
 		self.driver.get(self.base_url)
 
 	def login(self):
-		self.driver.get(self.base_url+'OKRS')
+		self.driver.get(self.base_url)
 		self.send_keys('id=tbUsername','fengsijia')
 		self.send_keys('id=tbPassword','123456')
 		self.click('id=btLogin')   
@@ -33,7 +33,7 @@ class OkrTest(unittest.TestCase):
 		self.driver.switch_to.frame('p_frame')
 		time.sleep(2)
 
-	def create_project(self,project_name):
+	def create_project(self,project_name='testing'):
 		self.click('text=新增')
 		self.send_keys('css=input.addInp',project_name)
 		self.click('id=addProjectBtn')
@@ -44,9 +44,9 @@ class OkrTest(unittest.TestCase):
 		self.click('id=headName')
 		self.click('css=li.delete')
 		self.click('id=proCarConfirmBtn')
+		time.sleep(2)
 
 	def rename_project(self,project_name):
-		self.create_project('rename')
 		self.click('css=#projectList > li:last-child')
 		self.click('id=headName')
 		self.click('css=li.rename')
