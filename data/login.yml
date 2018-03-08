@@ -1,14 +1,7 @@
 # -*- coding: utf-8 -*-
 
-#通过性测试
-- { username: fengsijia, password: !!str 123456, expected: 欢迎，冯思佳}
+- { username: fengsijia, password: 123456, expected: 欢迎，冯思佳}
 
-#失败性测试:
-# 1.密码错误
-#- { username: fengsijia, password: !!str 1234567, expected: 您输入的账户名和密码不匹配，请重新输入}
-# 2.用户名错误
-#- { username: feng, password: !!str 123456, expected: 您输入的账户名和密码不匹配，请重新输入}
-# 3.密码或用户名为空
-#- { username: fengsijia, password: , expected: 您输入的账户名和密码不匹配，请重新输入}
-- { username:  , password: !!str 123456, expected: 您输入的账户名和密码不匹配，请重新输入}
-#- { username: , password: , expected: 您输入的账户名和密码不匹配，请重新输入}
+- { username: fengsijia, password: 1234567, expected: 您输入的账户名和密码不匹配，请重新输入}
+- { username: feng, password: 123456, expected: 您输入的账户名和密码不匹配，请重新输入}
+

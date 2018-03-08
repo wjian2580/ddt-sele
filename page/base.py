@@ -8,6 +8,7 @@ from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 import unittest, time, re
 import random
 import pdb
@@ -20,28 +21,39 @@ class OkrTest(unittest.TestCase):
 		self.driver = webdriver.Chrome()
 		self.driver.maximize_window()
 		self.driver.implicitly_wait(10)
-		self.base_url = "http://10.202.202.94:28080/"
+		self.base_url = "http://okrs.top/"
 		self.driver.get(self.base_url)
 
-	def login(self,driver):
+	def login(self):
 		self.driver.get(self.base_url+'OKRS')
 		self.send_keys('id=tbUsername','fengsijia')
 		self.send_keys('id=tbPassword','123456')
 		self.click('id=btLogin')   
 		self.click("xpath=//li[@onclick='changePro()']")   
-		driver.switch_to.frame('p_frame')
+		self.driver.switch_to.frame('p_frame')
+		time.sleep(2)
 
-	def create_project(self,driver):
-		project_name = 'test' + str(random.randint(0,10))
-		driver.find_element_by_link_text(u"新增").click()
-		driver.find_element_by_css_selector("input.addInp").clear()
-		driver.find_element_by_css_selector("input.addInp").send_keys(project_name)
-		driver.find_element_by_id("addProjectBtn").click()
+	def create_project(self,project_name):
+		self.click('text=新增')
+		self.send_keys('css=input.addInp',project_name)
+		self.click('id=addProjectBtn')
+		time.sleep(2)
 
-	def delete_project(self,driver):
-		driver.find_element_by_id("headName").click()
-		driver.find_element_by_css_selector("li.delete").click()
-		driver.find_element_by_id("proCarConfirmBtn").click()
+	def delete_project(self):
+		self.click('css=#projectList > li:last-child')
+		self.click('id=headName')
+		self.click('css=li.delete')
+		self.click('id=proCarConfirmBtn')
+
+	def rename_project(self,project_name):
+		self.create_project('rename')
+		self.click('css=#projectList > li:last-child')
+		self.click('id=headName')
+		self.click('css=li.rename')
+		self.send_keys('id=proCarConfInput',project_name)
+		self.click('id=proCarConfirmBtn')
+		time.sleep(2)
+
 
 	def find_element(self,element):
 
@@ -69,13 +81,11 @@ class OkrTest(unittest.TestCase):
 			raise NameError("Please enter the correct targeting elements,'id','name','class','text','xpath','css'.")
 
 	def send_keys(self, element, text):
-
 		self.wait_element(element)
 		self.find_element(element).clear()
 		self.find_element(element).send_keys(text)
 
 	def click(self, element):
-
 		self.wait_element(element)
 		self.find_element(element).click()
 
@@ -102,11 +112,6 @@ class OkrTest(unittest.TestCase):
 			WebDriverWait(self.driver,seconds,1).until(EC.presence_of_element_located((By.CSS_SELECTOR, value)))
 		else:
 			raise NameError("Please enter the correct targeting elements,'id','name','class','text','xpaht','css'.")
-
-	def click(self,element):
-		time.sleep(1)
-		self.find_element(element).click()
-
 		
 	def tearDown(self):
 		self.driver.quit()

@@ -10,28 +10,29 @@ import pdb
 from page import base
 
 class Project(base.OkrTest):
-    
-    def test_project_1(self):
-        driver = self.driver
-        self.login(driver)
-        #新增项目
-        time.sleep(2)
-        project_name = 'test' + str(random.randint(10,100))
-        driver.find_element_by_link_text(u"新增").click()
-        driver.find_element_by_css_selector("input.addInp").clear()
-        driver.find_element_by_css_selector("input.addInp").send_keys(project_name)
-        driver.find_element_by_id("addProjectBtn").click()
-        
-        #项目重命名
-        driver.find_element_by_id("headName").click()
-        driver.find_element_by_css_selector("li.rename").click()
-        driver.find_element_by_id("proCarConfInput").clear()
-        driver.find_element_by_id("proCarConfInput").send_keys("test4")
-        driver.find_element_by_id("proCarConfirmBtn").click()
-        #删除项目
-        driver.find_element_by_id("headName").click()
-        driver.find_element_by_css_selector("li.delete").click()
-        driver.find_element_by_id("proCarConfirmBtn").click()
-    
+	
+	def test_create_project(self):
+		self.login()
+		self.create_project('create')
+		project = self.find_element('css=#projectList > li:last-child').text
+		try:
+			self.assertEqual(project,'create')
+		finally:
+			self.delete_project()
+
+	def test_rename_project(self):
+		self.login()
+		self.rename_project('renamed')
+		project = self.find_element('css=#projectList > li:last-child').text
+		try:
+			self.assertEqual(project,'renamed')
+		finally:
+			self.delete_project()
+
+
+	# def test_rename_project(self):
+	# 	self.rename_project()
+	# 	self.delete_project()
+	
 if __name__ == "__main__":
-    unittest.main()
+	unittest.main()
