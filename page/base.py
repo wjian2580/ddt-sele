@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -23,31 +24,33 @@ class OkrTest(unittest.TestCase):
 		self.driver.implicitly_wait(5)
 		self.base_url = "http://okrs.top/OKRS"
 		self.driver.get(self.base_url)
+		self.login()
 
 	def login(self):
 		self.driver.get(self.base_url)
 		self.send_keys('id=tbUsername','fengsijia')
 		self.send_keys('id=tbPassword','123456')
 		self.click('id=btLogin')   
-		self.click("xpath=//li[@onclick='changePro()']")   
+		self.sleep()
+		self.driver.find_element_by_xpath("//li[@onclick='changePro()']").click()
 		self.driver.switch_to.frame('p_frame')
-		time.sleep(2)
+		self.sleep(2)
 
 	def create_project(self,project_name='testing'):
-		project = self.find_element('css=#projectList > li:last-child').text
+		project = self.get_text('css=#projectList > li:last-child')
 		if project == project_name:
 			self.delete_project()
 		self.click('text=新增')
 		self.send_keys('css=input.addInp',project_name)
 		self.click('id=addProjectBtn')
-		time.sleep(2)
+		self.sleep()
 
 	def delete_project(self):
 		self.click('css=#projectList > li:last-child')
 		self.click('id=headName')
 		self.click('css=li.delete')
 		self.click('id=proCarConfirmBtn')
-		time.sleep(2)
+		self.sleep()
 
 	def rename_project(self,project_name):
 		self.click('css=#projectList > li:last-child')
@@ -55,8 +58,19 @@ class OkrTest(unittest.TestCase):
 		self.click('css=li.rename')
 		self.send_keys('id=proCarConfInput',project_name)
 		self.click('id=proCarConfirmBtn')
-		time.sleep(2)
+		self.sleep()
 
+	def create_task(self,task_name='test_task'):
+		self.click('css=td.taskInto')
+		self.send_keys('css=td.taskInto > div > div > input',task_name)
+		self.click('css=button.btn_tast')
+		self.sleep()
+
+	def create_stage(self,stage_name='stage'):
+		self.click('css=span.stageTxt')
+		self.send_keys('css=th.stage_th > div > div > input',stage_name)
+		self.click('css=button.btn.stagename')
+		self.sleep()
 
 	def find_element(self,element):
 
@@ -92,6 +106,46 @@ class OkrTest(unittest.TestCase):
 		self.wait_element(element)
 		self.find_element(element).click()
 
+	def submit(self, element):
+	    self.wait_element(element)
+	    self.find_element(element).submit()
+
+	def switch_to_frame(self, element):
+
+	    self.wait_element(element)
+	    self.driver.switch_to.frame(self.find_element(element))
+
+	def get_attribute(self, element, attribute):
+	    self.wait_element(element)
+	    return self.find_element(element).get_attribute(attribute)
+
+	def get_text(self, element):
+	    self.wait_element(element)
+	    return self.find_element(element).text
+
+	def get_display(self, element):
+	    self.wait_element(element)
+	    return self.find_element(element).is_displayed()
+
+	def right_click(self, element):
+	    self.wait_element(element)
+	    ActionChains(self.driver).context_click(self.find_element(element)).perform()
+
+	def move_to_element(self, element):
+	    self.wait_element(element)
+	    ActionChains(self.driver).move_to_element(self.find_element(element)).perform()
+
+	def double_click(self, element):
+	    self.wait_element(element)
+	    ActionChains(self.driver).double_click(self.find_element(element)).perform()
+
+	def drag_and_drop(self, source_element, target_element):
+	    self.wait_element(source_element)
+	    self.wait_element(target_element)
+	    ActionChains(self.driver).drag_and_drop(self.find_element(source_element), self.find_element(target_element)).perform()
+
+	def sleep(self,times=1):
+		time.sleep(times)
 
 	def wait_element(self, element, seconds=5):
 
@@ -115,7 +169,20 @@ class OkrTest(unittest.TestCase):
 			WebDriverWait(self.driver,seconds,1).until(EC.presence_of_element_located((By.CSS_SELECTOR, value)))
 		else:
 			raise NameError("Please enter the correct targeting elements,'id','name','class','text','xpaht','css'.")
-		
+
+	def retry_element(self,locator):
+		for _ in range(3):
+			try:
+				element = self.find_element(locator)
+				return element
+			except StaleElementReferenceException:
+				self.sleep()
+			except NoSuchElementException:
+				self.sleep()
+			except ElementNotVisibleException:
+				self.sleep()
+
+
 	def tearDown(self):
 		self.driver.quit()
 
