@@ -22,7 +22,7 @@ class OkrTest(unittest.TestCase):
 		self.driver = webdriver.Chrome()
 		self.driver.maximize_window()
 		self.driver.implicitly_wait(5)
-		self.base_url = "http://okrs.top/OKRS"
+		self.base_url = "http://10.202.202.94:28080/OKRS/"
 		self.driver.get(self.base_url)
 		self.login()
 
@@ -37,9 +37,11 @@ class OkrTest(unittest.TestCase):
 		self.sleep(2)
 
 	def create_project(self,project_name='testing'):
-		project = self.get_text('css=#projectList > li:last-child')
-		if project == project_name:
-			self.delete_project()
+		projects = self.driver.find_elements_by_css_selector('#projectList > li')
+		for project in projects:
+			if project.text == project_name:
+				project.click()
+				self.delete_project()
 		self.click('text=新增')
 		self.send_keys('css=input.addInp',project_name)
 		self.click('id=addProjectBtn')
@@ -181,7 +183,6 @@ class OkrTest(unittest.TestCase):
 				self.sleep()
 			except ElementNotVisibleException:
 				self.sleep()
-
 
 	def tearDown(self):
 		self.driver.quit()
