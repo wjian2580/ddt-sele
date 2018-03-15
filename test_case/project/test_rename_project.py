@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 import unittest
 from page import base
-import pdb
 
 class TestRenameProject(base.OkrTest):
 
 	def setUp(self):
 		super().setUp()
-		self.create_project('create')
+		self.create_project()
 		
 	def test_rename_project(self):
 		self.rename_project('renamed')

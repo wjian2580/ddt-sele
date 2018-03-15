@@ -1,0 +1,7 @@
+*.pyc
+*.log
+__pycache__
+.pypirc
+*/tmp/*
+logs/%
+.coverage

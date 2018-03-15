@@ -2,7 +2,7 @@
 from page.base import OkrTest
 import unittest
 
-class TestCreatePreStage(OkrTest):
+class TestCreateNextStage(OkrTest):
 	''''''
 	def setUp(self):
 		super().setUp()
@@ -10,7 +10,7 @@ class TestCreatePreStage(OkrTest):
 		self.create_task()
 		self.create_stage()
 
-	def test_create_pre_stage(self):
+	def test_create_next_stage(self):
 		self.click('css=span.stageTxt')
 		self.click('css=li.opt.stage_addNext')
 		self.send_keys('css=th.stage_th > div > div > input','nextStage')

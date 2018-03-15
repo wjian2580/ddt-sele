@@ -22,7 +22,7 @@ class OkrTest(unittest.TestCase):
 		self.driver = webdriver.Chrome()
 		self.driver.maximize_window()
 		self.driver.implicitly_wait(5)
-		self.base_url = "http://10.202.202.94:28080/OKRS/"
+		self.base_url = "http://okrs.top/"
 		self.driver.get(self.base_url)
 		self.login()
 
@@ -34,7 +34,7 @@ class OkrTest(unittest.TestCase):
 		self.sleep()
 		self.driver.find_element_by_xpath("//li[@onclick='changePro()']").click()
 		self.driver.switch_to.frame('p_frame')
-		self.sleep(2)
+		self.sleep(3)
 
 	def create_project(self,project_name='testing'):
 		projects = self.driver.find_elements_by_css_selector('#projectList > li')
