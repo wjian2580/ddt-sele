@@ -22,7 +22,7 @@ class OkrTest(unittest.TestCase):
 		self.driver = webdriver.Chrome()
 		self.driver.maximize_window()
 		self.driver.implicitly_wait(5)
-		self.base_url = "http://okrs.top/"
+		self.base_url = "http://10.202.202.94:28080/OKRS/"
 		self.driver.get(self.base_url)
 		self.login()
 
@@ -73,6 +73,16 @@ class OkrTest(unittest.TestCase):
 		self.send_keys('css=th.stage_th > div > div > input',stage_name)
 		self.click('css=button.btn.stagename')
 		self.sleep()
+
+	def create_leader(self,leader_name='王健'):
+		self.click('css=img.change')
+		element=self.driver.find_element_by_css_selector('input.name')
+		element.send_keys(leader_name)
+		element.send_keys(Keys.ENTER)
+		self.click('css=li.lis')
+		self.click('css=input.date')
+		self.click('css=span.laydate-btns-now')
+		self.click('css=input.btn')
 
 	def find_element(self,element):
 

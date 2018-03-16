@@ -13,7 +13,7 @@ class TestLogin(base.OkrTest):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
         self.driver.implicitly_wait(5)
-        self.base_url = "http://okrs.top/OKRS"
+        self.base_url = "http://10.202.202.94:28080/OKRS/"
         self.driver.get(self.base_url)  
               
     @file_data('../../data/login.yml')

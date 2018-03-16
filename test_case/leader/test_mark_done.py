@@ -5,20 +5,23 @@ import pdb
 import random
 import unittest
 
-class TestNewLeader(OkrTest):
+class TestMarkDone(OkrTest):
 	''''''
 	def setUp(self):
 		super().setUp()
 		self.create_project()
 		self.create_task()
 		self.create_stage()
+		self.create_leader()
 
 #	@unittest.skip('reason')
-	def test_new_leader(self):
-		expect_leader = '王健'
-		self.create_leader(expect_leader)
-		leader = self.get_text('css=p.td_name')
-		self.assertEqual(leader,expect_leader)
+	def test_mark_done(self):
+		self.click('css=p.td_name')
+		self.click('css=input.checkbox')
+		self.click('css=input.btn')
+		self.sleep(2)
+		text = self.get_text('css=p.td_tip')
+		self.assertEqual(text,'已完成')
 
 if __name__ == "__main__":
 	unittest.main()
