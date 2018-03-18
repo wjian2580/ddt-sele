@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import unittest
 from page import base
 
@@ -11,7 +12,7 @@ class TestDeleteProject(base.OkrTest):
 	def test_delete_project(self):
 		self.delete_project()
 		project = self.get_text('css=#projectList > li:last-child')
-		self.assertNotEqual(project,'create')
+		self.assertNotEqual(project,'testing')
 	
 if __name__ == "__main__":
 	unittest.main()

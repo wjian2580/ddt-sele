@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
 - { username: fengsijia, password: 123456, expected: 欢迎，冯思佳}
-- { username: fengsijia, password: 1234567, expected: 您输入的账户名和密码不匹配，请重新输入}
+- { username: fengsijia, password: 1234567, expected: 输入的账户名和密码不匹配，请重新输入}
 - { username: feng, password: 123456, expected: 您输入的账户名和密码不匹配，请重新输入}
 

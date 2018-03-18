@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from page.base import OkrTest
-from selenium.webdriver.common.keys import Keys
+
 import pdb
 import random
 import unittest
+from page.base import OkrTest
+from selenium.webdriver.common.keys import Keys
 
 class TestNewLeader(OkrTest):
 	''''''
@@ -13,7 +14,7 @@ class TestNewLeader(OkrTest):
 		self.create_task()
 		self.create_stage()
 
-#	@unittest.skip('reason')
+	@unittest.skip('reason')
 	def test_new_leader(self):
 		expect_leader = '王健'
 		self.create_leader(expect_leader)

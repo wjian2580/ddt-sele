@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from page.base import OkrTest
+
 import unittest
+from page.base import OkrTest
 
 class TestCreateNextStage(OkrTest):
 	''''''

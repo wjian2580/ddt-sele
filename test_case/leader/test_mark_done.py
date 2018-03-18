@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from page.base import OkrTest
-from selenium.webdriver.common.keys import Keys
+
 import pdb
 import random
 import unittest
+from page.base import OkrTest
+from selenium.webdriver.common.keys import Keys
 
 class TestMarkDone(OkrTest):
 	''''''
@@ -14,7 +15,7 @@ class TestMarkDone(OkrTest):
 		self.create_stage()
 		self.create_leader()
 
-#	@unittest.skip('reason')
+	@unittest.skip('reason')
 	def test_mark_done(self):
 		self.click('css=p.td_name')
 		self.click('css=input.checkbox')

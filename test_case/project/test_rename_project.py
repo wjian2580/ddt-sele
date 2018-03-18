@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import unittest
 from page import base
 
@@ -12,6 +13,7 @@ class TestRenameProject(base.OkrTest):
 		self.rename_project('renamed')
 		project = self.get_text('css=#projectList > li:last-child')
 		self.assertEqual(project,'renamed')
+		self.delete_project()
 	
 if __name__ == "__main__":
 	unittest.main()

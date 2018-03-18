@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os 
 
 def main():
@@ -5,7 +7,7 @@ def main():
 	cases = [os.path.join(path,case) for case in os.listdir('.') if case != 'case_format.py']
 	st = ''
 	for case in cases:
-		with open(case,'r',encoding='utf-8') as f:
+		with open(case,encoding='utf-8') as f:
 			lines = f.readlines()
 		for line in lines:
 			if 'clear()' in line:

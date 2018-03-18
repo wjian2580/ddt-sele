@@ -1,0 +1,7 @@
+email:
+  from_addr: wjian2580@163.com
+  to_addr: 
+    - 501260495@qq.com
+  smtp_server: smtp.163.com
+  port: 465
+  password: password
