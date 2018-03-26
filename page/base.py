@@ -19,10 +19,11 @@ class OkrTest(unittest.TestCase):
 	''''''
 
 	def setUp(self):
-		self.driver = webdriver.Chrome()
-		self.driver.maximize_window()
+#		self.driver = webdriver.Chrome()
+		self.driver = webdriver.PhantomJS()
 		self.driver.implicitly_wait(5)
-		self.base_url = "http://10.202.202.94:28080/OKRS/"
+		self.driver.set_window_size(1124,500)
+		self.base_url = "http://okrs.top/OKRS/"
 		self.driver.get(self.base_url)
 
 	def login(self):
@@ -62,7 +63,7 @@ class OkrTest(unittest.TestCase):
 		self.sleep()
 
 	def create_task(self,task_name='test_task'):
-		self.click('css=td.taskInto')
+		self.click('css=i.taskTxt')
 		self.send_keys('css=td.taskInto > div > div > input',task_name)
 		self.click('css=button.btn_tast')
 		self.sleep()
@@ -115,6 +116,7 @@ class OkrTest(unittest.TestCase):
 
 	def send_keys(self, element, text):
 		self.wait_element(element)
+		self.click(element)
 		self.find_element(element).clear()
 		self.find_element(element).send_keys(text)
 
