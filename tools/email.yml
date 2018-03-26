@@ -1,0 +1,8 @@
+email:
+  from_addr: wjian2580@163.com
+  to_addr: 
+    - 501260495@qq.com
+    - wangjian37@xdf.cn
+  smtp_server: smtp.163.com
+  port: 465
+  password: Wjian2580

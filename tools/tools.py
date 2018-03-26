@@ -10,8 +10,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart  
 from email.mime.application import MIMEApplication
 
-def config_parse(item):
-	with open('conf.yml',encoding='utf-8') as y:
+def _config_parse(item):
+	with open('tools/email.yml',encoding='utf-8') as y:
 		config = yaml.load(y)
 	if config.get(item):
 		return config[item]
@@ -22,11 +22,13 @@ def config_parse(item):
 def get_path():
 	day = time.strftime("%Y-%m-%d")
 	times = time.strftime("%H_%M_%S")
+
 	root = os.getcwd()
 	case_dir = os.path.join(root,r'test_case')
 	report_dir = os.path.join(root,'test_report')
 	report_day = os.path.join(report_dir,day)
 	file_name = times + '-report.html'
+
 	report = os.path.join(report_day,file_name)
 	if not os.path.exists(report_day):
 		os.mkdir(report_day)
@@ -34,7 +36,7 @@ def get_path():
 
 
 def send_mail(report):
-	email = config_parse('email')
+	email = _config_parse('email')
 	from_addr,to_addr,smtp_server,port,password = [email[i] for i in email]
 	now_time = time.strftime("%Y-%m-%d")
 
@@ -44,7 +46,7 @@ def send_mail(report):
 	for receiver in to_addr:
 		msg['To'] = receiver
 
-	text = '''hi,all:\n\t本次测试结果见附件'''
+	text = '''hi,all:\n\n\t本次测试结果见附件'''
 	msg.attach(MIMEText(text, 'plain', 'utf-8'))
 
 	part = MIMEApplication(open(report,'rb').read())  

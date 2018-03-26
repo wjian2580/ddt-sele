@@ -22,9 +22,8 @@ class OkrTest(unittest.TestCase):
 		self.driver = webdriver.Chrome()
 		self.driver.maximize_window()
 		self.driver.implicitly_wait(5)
-		self.base_url = "http://okrs.top/OKRS/"
+		self.base_url = "http://10.202.202.94:28080/OKRS/"
 		self.driver.get(self.base_url)
-		self.login()
 
 	def login(self):
 		self.driver.get(self.base_url)
@@ -83,6 +82,11 @@ class OkrTest(unittest.TestCase):
 		self.click('css=input.date')
 		self.click('css=span.laydate-btns-now')
 		self.click('css=input.btn')
+
+	def logout(self):
+		self.driver.switch_to.default_content()
+		self.move_to_element('css=div.top_user')
+		self.click('text=登出')
 
 	def find_element(self,element):
 
