@@ -11,12 +11,13 @@ class TestTask(OkrTest):
 		self.create_project()
 		self.create_task()
 
+#	@unittest.skip('reason')
 	def test_new_task(self):	
 		text = self.get_text('css=#project_one > tbody > tr > td.taskInto > span > i')
 		self.assertEqual(text,'test_task')
 
 
-	@unittest.skip('reason')
+#	@unittest.skip('reason')
 	def test_create_same_level_task(self):	
 		self.click('css=img.taskpng')
 		self.click('css=li.opt_tast.stage_addPre')
@@ -26,7 +27,7 @@ class TestTask(OkrTest):
 		text = self.get_text('css=#project_one > tbody > tr:nth-child(2) > td.taskInto > span > i')
 		self.assertEqual(text,'samelevel')
 
-	@unittest.skip('reason')
+#	@unittest.skip('reason')
 	def test_create_subordinate_task(self):		
 		self.click('css=i.taskTxt')
 		self.click('css=li.opt_tast.stage_addNext')
@@ -36,9 +37,9 @@ class TestTask(OkrTest):
 		text = self.get_text('css=i.taskTxt')
 		self.assertEqual(text,'sub')
 
-	@unittest.skip('reason')
+#	@unittest.skip('reason')
 	def test_rename_task(self):
-		self.click('css=td.taskInto')
+		self.click('css=i.taskTxt')
 		self.click('css=li.opt_tast.resetName')
 		self.send_keys('css=td.taskInto > div > div > input','renamed')
 		self.click('css=button.btn_tast')
@@ -46,7 +47,7 @@ class TestTask(OkrTest):
 		text = self.get_text('css=i.taskTxt')
 		self.assertEqual(text,'renamed')
 	
-	@unittest.skip('reason')
+#	@unittest.skip('reason')
 	def test_delete_task(self):
 		self.click('css=i.taskTxt')
 		self.click('css=li.opt_tast.stage_delet')
